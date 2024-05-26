@@ -110,6 +110,7 @@ const Button = styled.button`
   &:hover {
     background-color: #0056b3;
   }
+  margin: 20px;
 `;
 
 const Footer = styled.footer`
