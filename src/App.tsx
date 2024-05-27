@@ -48,9 +48,7 @@ const App: React.FC = () => {
         <MainContent>
           <SectorForm />
           <ChecklistForm />
-          {/* <Button onClick={() => generatePDF(data, sector)}>Gerar PDF</Button> */}
           <Button onClick={() => generatePDF(data, sector)}>Gerar PDF</Button>
-          {/* <TemperatureHumidityChart dataPoints={dataPoints} /> */}
         </MainContent>
         <Footer>
           <p>2024 - Desenvolvido por Daniel Carvalho</p>

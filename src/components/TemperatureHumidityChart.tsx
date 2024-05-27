@@ -157,6 +157,7 @@
 // export default TemperatureHumidityChart;
 
 import React from "react";
+import styled from "styled-components";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -311,13 +312,21 @@ const TemperatureHumidityChart: React.FC<TemperatureHumidityChartProps> = ({
   };
 
   return (
-    <div>
-      <h2>Gráfico de Temperatura</h2>
+    <Container>
+      {/* <h2>Gráfico de Temperatura</h2> */}
       <Line data={temperatureChartData} options={temperatureChartOptions} />
-      <h2>Gráfico de Umidade</h2>
+      {/* <h2>Gráfico de Umidade</h2> */}
       <Line data={humidityChartData} options={humidityChartOptions} />
-    </div>
+    </Container>
   );
 };
 
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: 50% 50%;
+
+  @media only screen and (max-device-width: 900px) {
+    display: block;
+  }
+`;
 export default TemperatureHumidityChart;

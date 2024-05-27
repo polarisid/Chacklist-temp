@@ -28,36 +28,13 @@ const ChecklistForm: React.FC = () => {
     setHumidity("");
   };
 
-  const handleTemperatureChange = (value: string) => {
-    setTemperature(value);
-    const tempNumber = parseFloat(value);
-    if (tempNumber > 26) {
-      setTemperatureWarning("Temperatura muito alta");
-    } else if (tempNumber < 16) {
-      setTemperatureWarning("Temperatura muito baixa");
-    } else {
-      setTemperatureWarning("");
-    }
-  };
-  const handleHumidityChange = (value: string) => {
-    setHumidity(value);
-    const humidityNumber = parseFloat(value);
-    if (humidityNumber > 85) {
-      setHumidityWarning("Umidade muito alta");
-    } else if (humidityNumber < 60) {
-      setHumidityWarning("Umidade muito baixa");
-    } else {
-      setHumidityWarning("");
-    }
-  };
-
   const handleClear = () => {
     setData([]); // Limpa os dados do local storage
   };
 
   return (
     <FormContainer onSubmit={handleSubmit}>
-      <h2>Checklist de Temperatura e Umidade</h2>
+      <h2>Registre abaixo a Temperatura e Umidade</h2>
       <label htmlFor="temperature">Temperatura (°C) :</label>
       <input
         id="temperature"
