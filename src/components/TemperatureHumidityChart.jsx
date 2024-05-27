@@ -212,8 +212,8 @@ const TemperatureHumidityChart = ({ dataPoints }) => {
         annotations: {
           lowLimit: {
             type: "line",
-            yMin: 16,
-            yMax: 16,
+            yMin: 18,
+            yMax: 18,
             borderColor: "red",
             borderWidth: 2,
             borderDash: [6, 6],
@@ -225,8 +225,8 @@ const TemperatureHumidityChart = ({ dataPoints }) => {
           },
           highLimit: {
             type: "line",
-            yMin: 26,
-            yMax: 26,
+            yMin: 28,
+            yMax: 28,
             borderColor: "red",
             borderWidth: 2,
             borderDash: [6, 6],
@@ -255,8 +255,8 @@ const TemperatureHumidityChart = ({ dataPoints }) => {
         annotations: {
           lowLimit: {
             type: "line",
-            yMin: 60,
-            yMax: 60,
+            yMin: 41,
+            yMax: 41,
             borderColor: "blue",
             borderWidth: 2,
             borderDash: [6, 6],
@@ -268,8 +268,8 @@ const TemperatureHumidityChart = ({ dataPoints }) => {
           },
           highLimit: {
             type: "line",
-            yMin: 85,
-            yMax: 85,
+            yMin: 60,
+            yMax: 60,
             borderColor: "blue",
             borderWidth: 2,
             borderDash: [6, 6],
