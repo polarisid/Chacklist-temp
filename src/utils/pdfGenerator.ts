@@ -66,9 +66,14 @@ import { DataPoint } from "../components/ChecklistForm";
 
 export const generatePDF = (data: DataPoint[], setor: string) => {
   const doc = new jsPDF();
-
+  const timeElapsed = Date.now();
+  const today = new Date(timeElapsed);
   // Adiciona o título do relatório
-  doc.text("Relatório de Temperatura e Umidade", 20, 10);
+  doc.text(
+    "Relatório de Temperatura e Umidade " + today.toLocaleDateString(),
+    20,
+    10
+  );
 
   // Adiciona o nome do setor
   doc.text(`Setor: ${setor}`, 20, 20);

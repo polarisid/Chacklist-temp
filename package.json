@@ -12,6 +12,7 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "chart.js": "^4.4.3",
+    "chartjs-plugin-annotation": "^3.0.1",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",
     "react": "^18.3.1",
@@ -48,6 +49,7 @@
   },
   "devDependencies": {
     "@types/chart.js": "^2.9.41",
-    "@types/chartjs": "^0.0.31"
+    "@types/chartjs": "^0.0.31",
+    "@types/chartjs-plugin-annotation": "^0.5.5"
   }
 }
