@@ -68,7 +68,7 @@ export const generatePDF = (data: DataPoint[], setor: string) => {
   const doc = new jsPDF();
   const timeElapsed = Date.now();
   const today = new Date(timeElapsed);
-  // Adiciona o título do relatório
+
   doc.text(
     "Relatório de Temperatura e Umidade " + today.toLocaleDateString(),
     20,
@@ -79,7 +79,24 @@ export const generatePDF = (data: DataPoint[], setor: string) => {
   doc.text(`Setor: ${setor}`, 20, 20);
 
   // Verifica se há dados para adicionar à tabela
-  if (data.length > 0) {
+
+  function sortDataDescending(data: any): any {
+    return data.sort((a: any, b: any) => {
+      const timeA = a.time.split(":").map(Number);
+      const timeB = b.time.split(":").map(Number);
+
+      const dateA = new Date();
+      dateA.setHours(timeA[0], timeA[1], timeA[2], 0);
+      const dateB = new Date();
+      dateB.setHours(timeB[0], timeB[1], timeB[2], 0);
+
+      return <any>dateB - <any>dateA; // Ordena em ordem decrescente
+    });
+  }
+
+  const sortedData = sortDataDescending(data);
+
+  if (sortedData.length > 0) {
     const tableColumn = ["Hora", "Temperatura", "Umidade"];
     const tableRows = data.map((item) => [
       item.time,
@@ -99,13 +116,13 @@ export const generatePDF = (data: DataPoint[], setor: string) => {
         if (column === 1) {
           // Verifica a temperatura
           const temperature = parseFloat(value);
-          if (temperature < 16 || temperature > 26) {
+          if (temperature < 18 || temperature > 28) {
             isOutOfRange = true;
           }
         } else if (column === 2) {
           // Verifica a umidade
           const humidity = parseFloat(value);
-          if (humidity < 60 || humidity > 85) {
+          if (humidity < 41 || humidity > 60) {
             isOutOfRange = true;
           }
         }
