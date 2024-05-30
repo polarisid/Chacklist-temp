@@ -18,6 +18,7 @@ const SectorForm: React.FC = () => {
     <FormContainer onSubmit={handleSubmit}>
       {/* <label htmlFor="sector">Setor:</label> */}
       <TextField
+        required
         label="Setor"
         variant="outlined"
         id="sector"

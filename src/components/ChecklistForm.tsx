@@ -135,11 +135,15 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import Button from "@mui/material/Button";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import ErrorModal from "./ErrorModal";
+import Modal from "react-modal";
+
 export interface DataPoint {
   time: string;
   temperature: string;
   humidity: string;
 }
+Modal.setAppElement("#root");
 
 const ChecklistForm: React.FC = () => {
   const [data, setData] = useLocalStorage<DataPoint[]>("data", []);
@@ -148,17 +152,23 @@ const ChecklistForm: React.FC = () => {
   const [time, setTime] = useState("");
   const [temperatureWarning, setTemperatureWarning] = useState("");
   const [humidityWarning, setHumidityWarning] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
-    // e.preventDefault();
+    e.preventDefault();
     if (isNaN(Number(temperature)) || isNaN(Number(humidity))) {
       alert("Por favor, insira valores numéricos válidos.");
       return;
     } else if (temperature == "" || humidity == "") {
-      alert("Por favor, insira valores numéricos válidos.");
-      return;
+      // alert("Por favor, insira valores numéricos válidos.");
+      setErrorMessage("O campo não pode estar vazio.");
+      setIsModalOpen(true);
+      // return;
     } else if (time == "") {
-      alert("Por favor, insira um horario.");
+      // alert("Por favor, insira um horario.");
+      setErrorMessage("Por favor, insira um horario.");
+      setIsModalOpen(true);
       return;
     }
 
@@ -182,6 +192,11 @@ const ChecklistForm: React.FC = () => {
 
   return (
     <FormContainer onSubmit={handleSubmit}>
+      <ErrorModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        message={errorMessage}
+      />
       <h2>Registre abaixo a Temperatura e Umidade</h2>
 
       <div className="TempHum-box">
@@ -195,6 +210,7 @@ const ChecklistForm: React.FC = () => {
             autoComplete="off"
           />
           <TextField
+            required
             helperText="Faixa aceitavel 18-28°C"
             size="small"
             label="Temperatura(°C)"
@@ -229,6 +245,7 @@ const ChecklistForm: React.FC = () => {
             autoComplete="off"
           />
           <TextField
+            required
             helperText="Faixa aceitavel 41-60%"
             size="small"
             id="humidity"
@@ -270,6 +287,7 @@ const ChecklistForm: React.FC = () => {
           autoComplete="off"
         />
         <TextField
+          required
           size="small"
           id="time"
           label="Hora da medição"

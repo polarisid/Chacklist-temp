@@ -51,7 +51,7 @@ const App: React.FC = () => {
     // alert("Hora de registrar a temperatura e umidade!");
     openModal();
   }, 3600000); // 1 hora em milissegundos
-  // }, 3600); // 1 hora em milissegundos
+  // }, 3600); // 1 hora em milissegundos1
 
   const [dataPoints, setDataPoints] = useState<DataPoint[]>([]);
   // const [dataPoints, setDataPoints] = useState<
