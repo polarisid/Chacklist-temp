@@ -157,6 +157,9 @@ const ChecklistForm: React.FC = () => {
     } else if (temperature == "" || humidity == "") {
       alert("Por favor, insira valores numéricos válidos.");
       return;
+    } else if (time == "") {
+      alert("Por favor, insira um horario.");
+      return;
     }
 
     setData([...data, { time, temperature, humidity }]);

@@ -2,8 +2,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import TemperatureHumidityChart from "./components/TemperatureHumidityChart";
 import { getStoredDataPoints, storeDataPoint } from "./utils/localStorage";
 import styled from "styled-components";
-// import Header from './components/Header';
-// import Footer from './components/Footer';
 import SectorForm from "./components/SectorForm";
 import ChecklistForm, { DataPoint } from "./components/ChecklistForm";
 import useNotification from "./hooks/useNotification";
