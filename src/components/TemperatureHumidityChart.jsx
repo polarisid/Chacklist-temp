@@ -310,13 +310,23 @@ const TemperatureHumidityChart = ({ dataPoints }) => {
 
   return (
     <Container>
-      <Line data={temperatureChartData} options={temperatureChartOptions} />
-      <Line data={humidityChartData} options={humidityChartOptions} />
+      <div className="grafico">
+        <Line data={temperatureChartData} options={temperatureChartOptions} />
+      </div>
+      <div className="grafico">
+        <Line data={humidityChartData} options={humidityChartOptions} />
+      </div>
     </Container>
   );
 };
 
 const Container = styled.div`
+  display: flex;
+  max-height: 450px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+
   @media only screen and (max-device-width: 900px) {
     display: block;
   }

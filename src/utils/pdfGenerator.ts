@@ -68,15 +68,21 @@ export const generatePDF = (data: DataPoint[], setor: string) => {
   const doc = new jsPDF();
   const timeElapsed = Date.now();
   const today = new Date(timeElapsed);
+  doc.setFontSize(19);
 
-  doc.text(
-    "Relatório de Temperatura e Umidade " + today.toLocaleDateString(),
-    20,
-    10
-  );
+  doc.setFont("helvetica", "bold");
+  doc.text("Relatório de Temperatura e Umidade", 20, 10);
+  doc.setFontSize(12);
+
+  doc.text(`Setor:${setor}`, 20, 21);
+  doc.text(`Data:${today.toLocaleDateString()}`, 60, 21);
+
+  doc.setLineWidth(0.5);
+  doc.line(190, 25, 20, 25);
+  doc.line(190, 15, 20, 15);
 
   // Adiciona o nome do setor
-  doc.text(`Setor: ${setor}`, 20, 20);
+  // doc.text(`SETOR: ${setor}`, 20, 25);
 
   // Verifica se há dados para adicionar à tabela
 

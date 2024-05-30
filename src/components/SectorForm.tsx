@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import * as React from "react";
+
 import styled from "styled-components";
 import useLocalStorage from "../hooks/useLocalStorage";
+import TextField from "@mui/material/TextField";
 
 const SectorForm: React.FC = () => {
   const [sector, setSector] = useLocalStorage("sector", "");
@@ -13,13 +16,22 @@ const SectorForm: React.FC = () => {
 
   return (
     <FormContainer onSubmit={handleSubmit}>
-      <label htmlFor="sector">Setor:</label>
-      <input
+      {/* <label htmlFor="sector">Setor:</label> */}
+      <TextField
+        label="Setor"
+        variant="outlined"
         id="sector"
         type="text"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
       />
+      {/* 
+      <input
+        id="sector"
+        type="text"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+      /> */}
       <button type="submit">Salvar Setor</button>
     </FormContainer>
   );
@@ -27,16 +39,15 @@ const SectorForm: React.FC = () => {
 
 const FormContainer = styled.form`
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
   gap: 10px;
   margin-top: 20px;
-  label {
-    font-size: 1.2rem;
-  }
+
   input {
-    padding: 5px;
+    /* padding: 5px; */
     font-size: 1rem;
+    height: 10px;
   }
   button {
     padding: 10px 20px;

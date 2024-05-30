@@ -3,6 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@material-design-icons/svg": "^0.14.13",
+    "@mui/icons-material": "^5.15.19",
+    "@mui/material": "^5.15.19",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@react-pdf/renderer": "^3.4.4",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -13,11 +20,14 @@
     "@types/react-dom": "^18.3.0",
     "chart.js": "^4.4.3",
     "chartjs-plugin-annotation": "^3.0.1",
+    "howler": "^2.2.4",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.51.5",
+    "react-modal": "^3.16.1",
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.11",
     "typescript": "^4.9.5",
@@ -50,6 +60,8 @@
   "devDependencies": {
     "@types/chart.js": "^2.9.41",
     "@types/chartjs": "^0.0.31",
-    "@types/chartjs-plugin-annotation": "^0.5.5"
+    "@types/chartjs-plugin-annotation": "^0.5.5",
+    "@types/howler": "^2.2.11",
+    "@types/react-modal": "^3.16.3"
   }
 }

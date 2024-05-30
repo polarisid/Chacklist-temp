@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import TemperatureHumidityChart from "./components/TemperatureHumidityChart";
 import { getStoredDataPoints, storeDataPoint } from "./utils/localStorage";
 import styled from "styled-components";
@@ -9,14 +9,51 @@ import ChecklistForm, { DataPoint } from "./components/ChecklistForm";
 import useNotification from "./hooks/useNotification";
 import { generatePDF } from "./utils/pdfGenerator";
 import useLocalStorage from "./hooks/useLocalStorage";
+import NotificationModal from "./components/NotificationModal";
+import { Howl } from "howler";
 
 const App: React.FC = () => {
   let [data] = useLocalStorage<DataPoint[]>("data", []);
   const [sector] = useLocalStorage<string>("sector", "");
 
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [sound, setSound] = useState<Howl | null>(null);
+
+  const openModal = useCallback(() => {
+    // Criar o som quando o modal for aberto, após uma interação do usuário
+    const notificationSound = new Howl({
+      src: ["/notification-sound.mp3"],
+      volume: 1.0,
+      onloaderror: (id, error) => {
+        console.error("Erro ao carregar o som:", error);
+      },
+      onplayerror: (id, error) => {
+        console.error("Erro ao reproduzir o som:", error);
+        notificationSound.once("unlock", () => {
+          notificationSound.play();
+        });
+      },
+    });
+    setSound(notificationSound);
+    setIsModalOpen(true);
+  }, []);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSound(null);
+  };
+
+  const playSound = () => {
+    if (sound) {
+      sound.play();
+    }
+  };
+
   useNotification(() => {
-    alert("Hora de registrar a temperatura e umidade!");
+    // alert("Hora de registrar a temperatura e umidade!");
+    openModal();
   }, 3600000); // 1 hora em milissegundos
+  // }, 3600); // 1 hora em milissegundos
 
   const [dataPoints, setDataPoints] = useState<DataPoint[]>([]);
   // const [dataPoints, setDataPoints] = useState<
@@ -41,9 +78,18 @@ const App: React.FC = () => {
 
   return (
     <AppContainer>
+      <NotificationModal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        playSound={playSound}
+      />
+
       <MainContainer>
-        <Header>
+        {/* <Header>
           <h1>Controle de Temperatura e Umidade</h1>
+        </Header> */}
+        <Header>
+          <Title>Controle de Temperatura e Umidade</Title>
         </Header>
         <MainContent>
           <SectorForm />
@@ -52,12 +98,29 @@ const App: React.FC = () => {
         </MainContent>
         <Footer>
           <p>2024 - Desenvolvido por Daniel Carvalho</p>
-          <p>Versão 1.1.3</p>
+          <p>Versão 1.2</p>
         </Footer>
       </MainContainer>
     </AppContainer>
   );
 };
+
+const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #007bff;
+`;
+
+const Title = styled.h1`
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  color: white;
+`;
 
 const AppContainer = styled.div`
   display: flex;
@@ -81,13 +144,13 @@ const MainContainer = styled.div`
   background-color: #f5f5f5;
 `;
 
-const Header = styled.header`
-  background-color: #007bff;
-  width: 100%;
-  padding: 1rem;
-  text-align: center;
-  color: white;
-`;
+// const Header = styled.header`
+//   background-color: #007bff;
+//   width: 100%;
+//   padding: 0.5rem;
+//   text-align: center;
+//   color: white;
+// `;
 
 const Content = styled.main`
   flex: 1;
