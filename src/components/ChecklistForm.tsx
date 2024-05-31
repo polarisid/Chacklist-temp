@@ -156,7 +156,7 @@ const ChecklistForm: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    // e.preventDefault();
     if (isNaN(Number(temperature)) || isNaN(Number(humidity))) {
       alert("Por favor, insira valores numéricos válidos.");
       return;
