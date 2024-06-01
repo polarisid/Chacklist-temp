@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import TemperatureHumidityChart from "./components/TemperatureHumidityChart";
 import { getStoredDataPoints, storeDataPoint } from "./utils/localStorage";
 import styled from "styled-components";
 import SectorForm from "./components/SectorForm";
