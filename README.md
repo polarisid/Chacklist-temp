@@ -1,46 +1,29 @@
-# Getting Started with Create React App
+# Checklist de temperatura de humidade
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto foi desenvolvido para substituir um formulário que antes era preenchido manualmente no papel e guardado em pastas.
 
-## Available Scripts
+## Forma de utilização
 
-In the project directory, you can run:
+- Coloque inicialmente o setor no qual irá acompanhar de hora em hora a temperatura e umidade.
 
-### `npm start`
+- Gere um registro de umidade e temperatura e clique no botão registrar.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- De hora em hora será gerada uma notificação no sistema com som para lembrar de preencher o Checklist
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Ao final do dia clique no botão gerar PDF para salvar o registro do dia
 
-### `npm test`
+- Após salvar o PDF clique em limpar e retorne no próximo dia e repita
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+OBS: Todos os dados de temperaturae umidade ficam salvos somente no navegador de quem está executando o Checklist
 
-### `npm run build`
+## Tecnologias utilizadas
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Styled-Components
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### React
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Typescript
 
-### `npm run eject`
+#### ChartJS
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### pdfJS

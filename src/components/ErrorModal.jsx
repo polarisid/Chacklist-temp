@@ -16,10 +16,11 @@ const ErrorModal = ({ isOpen, onClose, message }) => {
           bottom: "auto",
           marginRight: "-50%",
           transform: "translate(-50%, -50%)",
+          zIndex: 100000,
         },
       }}
     >
-      <h2>Erro</h2>
+      <h2>Atenção</h2>
       <p>{message}</p>
       <button onClick={onClose}>Fechar</button>
     </Modal>

@@ -9,9 +9,12 @@ import { generatePDF } from "./utils/pdfGenerator";
 import useLocalStorage from "./hooks/useLocalStorage";
 import NotificationModal from "./components/NotificationModal";
 import { Howl } from "howler";
+import Button from "@mui/material/Button";
+import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const App: React.FC = () => {
-  let [data] = useLocalStorage<DataPoint[]>("data", []);
+  const [data, setData] = useLocalStorage<DataPoint[]>("data", []);
   const [sector] = useLocalStorage<string>("sector", "");
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -54,25 +57,15 @@ const App: React.FC = () => {
   // }, 3600); // 1 hora em milissegundos1
 
   const [dataPoints, setDataPoints] = useState<DataPoint[]>([]);
-  // const [dataPoints, setDataPoints] = useState<
-  //   { time: string; temperature: number; humidity: number }[]
-  // >([]);
+  const handleClear = () => {
+    setData([]); // Limpa os dados do local storage
+    window.location.reload();
+  };
 
   useEffect(() => {
     const storedData = getStoredDataPoints();
     setDataPoints(storedData);
   }, [data]);
-
-  // const handleNewDataPoint = (temperature: number, humidity: number) => {
-  //   const newPoint = {
-  //     time: new Date().toLocaleTimeString(),
-  //     temperature,
-  //     humidity,
-  //   };
-  //   const updatedDataPoints = [...dataPoints, newPoint];
-  //   setDataPoints(updatedDataPoints);
-  //   storeDataPoint(newPoint);
-  // };
 
   return (
     <AppContainer>
@@ -87,21 +80,59 @@ const App: React.FC = () => {
           <h1>Controle de Temperatura e Umidade</h1>
         </Header> */}
         <Header>
-          <Title>Controle de Temperatura e Umidade</Title>
+          <Title>Checklist de Controle de Temperatura e Umidade</Title>
         </Header>
         <MainContent>
           <SectorForm />
           <ChecklistForm />
-          <Button onClick={() => generatePDF(data, sector)}>Gerar PDF</Button>
+          <ButtonContainer>
+            <Button
+              variant="contained"
+              onClick={() => generatePDF(data, sector)}
+              endIcon={<PictureAsPdfIcon />}
+            >
+              Gerar PDF
+            </Button>
+            <ButtonS
+              onClick={handleClear}
+              variant="outlined"
+              color="error"
+              startIcon={<DeleteForeverIcon />}
+            >
+              Limpar
+            </ButtonS>
+          </ButtonContainer>
         </MainContent>
         <Footer>
           <p>2024 - Desenvolvido por Daniel Carvalho</p>
-          <p>Versão 1.2</p>
+          <p>Versão 1.2.2</p>
         </Footer>
       </MainContainer>
     </AppContainer>
   );
 };
+
+const ButtonContainer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 20px;
+`;
+
+const ButtonS = styled(Button)`
+  padding: 10px 20px;
+  font-size: 1rem;
+  height: 40px;
+  cursor: pointer;
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  &:hover {
+    background-color: #ff4837;
+  }
+`;
 
 const Header = styled.div`
   display: flex;
@@ -110,11 +141,21 @@ const Header = styled.div`
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background-color: #007bff;
+  /* background-color: #007bff; */
+  -webkit-box-shadow: 0px 9px 17px -7px rgba(0, 0, 0, 0.33);
+  -moz-box-shadow: 0px 9px 17px -7px rgba(0, 0, 0, 0.33);
+  box-shadow: 0px 9px 17px -7px rgba(0, 0, 0, 0.33);
+
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+
+  background-color: #0093e9;
+  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
 `;
 
 const Title = styled.h1`
-  font-family: "Open Sans", sans-serif;
   font-weight: 600;
   font-size: 24px;
   color: white;
@@ -139,16 +180,20 @@ const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  background-color: #f5f5f5;
-`;
+  /* background-color: #f5f5f5; */
 
-// const Header = styled.header`
-//   background-color: #007bff;
-//   width: 100%;
-//   padding: 0.5rem;
-//   text-align: center;
-//   color: white;
-// `;
+  background: #ece9e6; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #ffffff,
+    #ece9e6
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #ffffff,
+    #ece9e6
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+`;
 
 const Content = styled.main`
   flex: 1;
@@ -159,7 +204,7 @@ const Content = styled.main`
   padding: 2rem;
 `;
 
-const Button = styled.button`
+const ButtonA = styled.button`
   background-color: #007bff;
   color: white;
   padding: 0.5rem 1rem;
@@ -174,109 +219,14 @@ const Button = styled.button`
 `;
 
 const Footer = styled.footer`
-  background-color: #007bff;
+  /* background-color: #007bff; */
   width: 100%;
   padding: 1rem;
   text-align: center;
   color: white;
+
+  background-color: #0093e9;
+  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
 `;
 
 export default App;
-// export default App;
-
-// // import styled from "styled-components";
-// // import TemperatureHumidityChart from "./components/TemperatureHumidityChart";
-// // import { getStoredDataPoints, storeDataPoint } from "./utils/localStorage";
-
-// // const App: React.FC = () => {
-// //   const [dataPoints, setDataPoints] = useState<
-// //     { time: string; temperature: number; humidity: number }[]
-// //   >([]);
-
-// //   useEffect(() => {
-// //     const storedData = getStoredDataPoints();
-// //     setDataPoints(storedData);
-// //   }, []);
-
-// //   const handleNewDataPoint = (temperature: number, humidity: number) => {
-// //     const newPoint = {
-// //       time: new Date().toLocaleTimeString(),
-// //       temperature,
-// //       humidity,
-// //     };
-// //     const updatedDataPoints = [...dataPoints, newPoint];
-// //     setDataPoints(updatedDataPoints);
-// //     storeDataPoint(newPoint);
-// //   };
-
-// //   return (
-// //     <MainContainer>
-// //       <Header>
-// //         <h1>Controle de Temperatura e Umidade</h1>
-// //       </Header>
-// //       <Content>
-// //         <TemperatureHumidityChart dataPoints={dataPoints} />
-// //         <Button onClick={() => handleNewDataPoint(25, 60)}>
-// //           Adicionar Medida (Exemplo)
-// //         </Button>
-// //       </Content>
-// //       <Footer>
-// //         <p>2024 - Desenvolvido por Daniel Carvalho</p>
-// //         <p>Versão 1.1.3</p>
-// //       </Footer>
-// //     </MainContainer>
-// //   );
-// // };
-
-// import React from "react";
-// import styled from "styled-components";
-// // import Header from './components/Header';
-// // import Footer from './components/Footer';
-// import SectorForm from "./components/SectorForm";
-// import ChecklistForm, { DataPoint } from "./components/ChecklistForm";
-// import useNotification from "./hooks/useNotification";
-// import { generatePDF } from "./utils/pdfGenerator";
-// import useLocalStorage from "./hooks/useLocalStorage";
-
-// const App: React.FC = () => {
-//   const [data] = useLocalStorage<DataPoint[]>("data", []);
-//   const [sector] = useLocalStorage<string>("sector", "");
-
-//   useNotification(() => {
-//     alert("Hora de registrar a temperatura e umidade!");
-//   }, 3600000); // 1 hora em milissegundos
-
-//   return (
-//     <AppContainer>
-//       {/* <Header /> */}
-//       <MainContent>
-//         <SectorForm />
-//         <ChecklistForm />
-//         <Button onClick={() => generatePDF(data)}>Gerar PDF</Button>
-//       </MainContent>
-//       {/* <Footer /> */}
-//     </AppContainer>
-//   );
-// };
-
-// const AppContainer = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   min-height: 100vh;
-// `;
-
-// const MainContent = styled.main`
-//   flex: 1;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-// `;
-
-// const Button = styled.button`
-//   padding: 10px 20px;
-//   font-size: 1rem;
-//   cursor: pointer;
-//   margin-top: 20px;
-// `;
-
-// export default App;
