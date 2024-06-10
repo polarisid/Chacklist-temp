@@ -11,8 +11,19 @@ import { Howl } from "howler";
 import Button from "@mui/material/Button";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import ModalInfo from "./components/ModalInfo";
+import HelpIcon from "@mui/icons-material/Help";
 
 const App: React.FC = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
   const [data, setData] = useLocalStorage<DataPoint[]>("data", []);
   const [sector] = useLocalStorage<string>("sector", "");
 
@@ -68,6 +79,22 @@ const App: React.FC = () => {
 
   return (
     <AppContainer>
+      <ModalInfo show={showModal} onClose={handleCloseModal}>
+        <h2>Como Usar?</h2>
+        <p>1 - Registre o setor de aferição e clique em salvar</p>
+        <p>
+          2 - Anote os valores de temperatura e umidade, e clique no reloginho
+          para atualizar o horario de aferição
+        </p>
+        <p>3- Clique em Registrar </p>
+        <p>4- No fim do dia pegue o relatório ao clicar em Gerar PDF </p>
+        <p>
+          4- Para iniciar um novo relatório, clique em Limpar para limpar os
+          dados do dia anterior{" "}
+        </p>
+        {/* Adicione mais conteúdo conforme necessário */}
+      </ModalInfo>
+
       <NotificationModal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
@@ -82,6 +109,7 @@ const App: React.FC = () => {
           <Title>Checklist de Controle de Temperatura e Umidade</Title>
         </Header>
         <MainContent>
+          <Helper onClick={handleOpenModal}></Helper>
           <SectorForm />
           <ChecklistForm />
           <ButtonContainer>
@@ -131,6 +159,12 @@ const ButtonS = styled(Button)`
   &:hover {
     background-color: #ff4837;
   }
+`;
+
+const Helper = styled(HelpIcon)`
+  position: absolute;
+  top: 110px;
+  right: 10px;
 `;
 
 const Header = styled.div`
